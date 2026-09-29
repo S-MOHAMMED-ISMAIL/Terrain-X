@@ -1,0 +1,65 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local virtual environments
+.venv-gamus/
+
+# Generated validation artifacts
+storage/validation/
+
+.venv-gamus/
+TERRAIN-X-TEST-DATA/
+storage/validation/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Playwright (Phase 10 real browser acceptance test, frontend/e2e/) —
+# generated run output only; the spec/config/fixtures themselves are real
+# source and stay committed.
+frontend/test-results/
+frontend/playwright-report/
+frontend/e2e/screenshots/
+!frontend/e2e/screenshots/
+frontend/e2e/screenshots/*
+!frontend/e2e/screenshots/phase3-*.png
+!frontend/e2e/screenshots/phase5-*.png
+!frontend/e2e/screenshots/phase6-*.png
+!frontend/e2e/screenshots/phase7-final-*.png
+frontend/blob-report/
+
+# Docker
+docker/pg_data/
+
+# Storage (uploaded/processed files should never be committed)
+storage/data/*
+!storage/data/.gitkeep
+
+# Downloaded model weights — large, reproducible from ai/depth_anything.py's
+# documented model name/revision, never committed.
+storage/model_cache/*
+!storage/model_cache/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log

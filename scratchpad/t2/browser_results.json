@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "elapsed_seconds": 16.1704187,
+  "context_status": 200,
+  "terrain_metadata_status": 200,
+  "terrain_grid_status": 200,
+  "playwright_post_consumption_body_bytes": 0,
+  "api_benchmark_grid_bytes": 262144,
+  "terrain_metadata": {
+    "width": 256,
+    "height": 256,
+    "source_width": 4096,
+    "source_height": 4096,
+    "height_kind": "relative_depth"
+  },
+  "overlay_box": {
+    "x": 704,
+    "y": 566,
+    "width": 328,
+    "height": 330
+  },
+  "canvases": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "clientWidth": 1440,
+      "clientHeight": 1000,
+      "webgl": false
+    },
+    {
+      "width": 806,
+      "height": 598,
+      "clientWidth": 806,
+      "clientHeight": 598,
+      "webgl": true
+    }
+  ],
+  "webgl_canvas_present": true,
+  "visual_inspection_nonblank": true,
+  "console_errors": [],
+  "page_errors": []
+}

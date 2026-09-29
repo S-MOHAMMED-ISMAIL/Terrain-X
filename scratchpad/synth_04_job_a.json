@@ -1,0 +1,83 @@
+{
+  "id": "89e6bc1f-2dd9-4601-82e9-e7e03987bec4",
+  "project_id": "c9681f20-5391-4674-bf72-e66090ab763a",
+  "dataset_id": "242d6135-01ad-420d-ba51-8437d1d03196",
+  "user_id": "8e99a00f-dcad-4e52-a022-a4bb217edc47",
+  "status": "completed",
+  "current_stage": "completed",
+  "progress": 100,
+  "error_message": null,
+  "parameters": {
+    "version": "v1",
+    "water_level": null,
+    "run_flood_screening": false,
+    "landslide_thresholds": null,
+    "run_landslide_screening": false,
+    "dem_reference_dataset_id": null,
+    "gcp_reference_dataset_id": null,
+    "disaster_source_artifact_id": null,
+    "enable_semantic_segmentation": false
+  },
+  "execution_summary": {
+    "crs": null,
+    "bands": 3,
+    "width": 768,
+    "height": 768,
+    "checked_at": "2026-09-29T04:09:07.768349+00:00",
+    "dataset_id": "242d6135-01ad-420d-ba51-8437d1d03196",
+    "image_quality": {
+      "notes": "Real, cheap image-quality indicators computed directly from the uploaded RGB pixel data. These measure properties of the image itself only \u2014 NOT model confidence, NOT segmentation accuracy, and NOT elevation accuracy. See geospatial/image_quality.py.",
+      "luminance_max": 196.91899999999998,
+      "luminance_min": 83.945,
+      "luminance_mean": 130.31695359124078,
+      "overexposed_fraction": 0.0,
+      "valid_pixel_fraction": 1.0,
+      "underexposed_fraction": 0.0,
+      "sharpness_laplacian_variance": 27.126062308594726
+    },
+    "reopened_file": true,
+    "band_statistics": [
+      {
+        "max": 168.0,
+        "min": 16.0,
+        "band": 1,
+        "mean": 112.90963575575087
+      },
+      {
+        "max": 210.0,
+        "min": 92.0,
+        "band": 2,
+        "mean": 141.0689222547743
+      },
+      {
+        "max": 250.0,
+        "min": 39.0,
+        "band": 3,
+        "mean": 120.60978190104167
+      }
+    ],
+    "depth_estimation": {
+      "device": "cpu",
+      "model_name": "depth-anything/Depth-Anything-V2-Small-hf",
+      "artifact_id": "f3c24498-73b0-441c-a14a-282fcc8d7bb4",
+      "output_width": 768,
+      "output_height": 768,
+      "model_revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+      "inference_seconds": 1.7016869149993
+    },
+    "is_georeferenced": false,
+    "parameters_version": "v1"
+  },
+  "calibration_status": "uncalibrated",
+  "calibration_metadata": null,
+  "semantic_status": "not_requested",
+  "semantic_metadata": null,
+  "ground_filter_status": "not_requested",
+  "ground_filter_metadata": null,
+  "disaster_status": "not_requested",
+  "disaster_metadata": null,
+  "created_at": "2026-09-29T04:08:58.009974Z",
+  "started_at": "2026-09-29T04:09:00.073572Z",
+  "completed_at": "2026-09-29T04:09:07.768959Z",
+  "updated_at": "2026-09-29T04:09:07.806684Z"
+}

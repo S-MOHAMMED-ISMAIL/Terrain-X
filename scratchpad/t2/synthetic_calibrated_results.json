@@ -1,0 +1,275 @@
+{
+  "label": "SYNTHETIC CALIBRATED PERFORMANCE FIXTURE ONLY",
+  "scientific_validation": false,
+  "source_depth": "/tmp/t2/depth_run2.tif",
+  "dimensions": [
+    4096,
+    4096
+  ],
+  "calibration": {
+    "total_candidate_samples": 2116,
+    "valid_samples": 2116,
+    "effective_samples": 2116,
+    "fit_scale": 2.5000002448454195,
+    "fit_offset": 99.999999561831,
+    "fit_iterations": 1,
+    "mae": 1.8961445678097001e-06,
+    "rmse": 2.2107597102049263e-06,
+    "cv_skill": 0.9999999999910136,
+    "cv_folds": 16,
+    "gate": {
+      "passed": true,
+      "failed_criteria": [],
+      "not_evaluated": [],
+      "policy": {
+        "version": "v1",
+        "min_cv_skill": 0.0,
+        "expected_scale_sign": 1,
+        "cv_blocks_per_side": 4,
+        "dem_cv_method": "leave_one_spatial_block_out",
+        "gcp_cv_method": "leave_one_out",
+        "statement": "Engineering acceptance policy, not an empirically validated accuracy standard. Passing means only that the fitted scale has the sign this pipeline's depth convention implies and that depth predicted held-out reference elevations better than their training-fold mean; it does not certify the accuracy of the resulting metric elevation."
+      }
+    },
+    "diagnostics": {
+      "scale": 2.5000002448454195,
+      "offset": 99.999999561831,
+      "valid_sample_count": 2116,
+      "effective_sample_count": 2116,
+      "all_sample_mae": 1.8961445678097001e-06,
+      "all_sample_rmse": 2.2107597102049263e-06,
+      "all_sample_bias": -1.4022809378705947e-14,
+      "in_sample_r2": 0.9999999999899357,
+      "pearson_r": 0.9999999999949678,
+      "spearman_rho": 0.9999999977834761
+    }
+  },
+  "ground_filter": {
+    "status": "completed",
+    "duration_seconds_reported": 17.972834105000175,
+    "window_levels": [
+      {
+        "level": 1,
+        "half_rows": 1,
+        "half_cols": 1,
+        "window_rows": 3,
+        "window_cols": 3,
+        "size_m": 0.87890625,
+        "threshold": 0.5,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 2,
+        "half_rows": 2,
+        "half_cols": 2,
+        "window_rows": 5,
+        "window_cols": 5,
+        "size_m": 1.46484375,
+        "threshold": 0.587890625,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 3,
+        "half_rows": 4,
+        "half_cols": 4,
+        "window_rows": 9,
+        "window_cols": 9,
+        "size_m": 2.63671875,
+        "threshold": 0.67578125,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 4,
+        "half_rows": 8,
+        "half_cols": 8,
+        "window_rows": 17,
+        "window_cols": 17,
+        "size_m": 4.98046875,
+        "threshold": 0.8515625,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 5,
+        "half_rows": 16,
+        "half_cols": 16,
+        "window_rows": 33,
+        "window_cols": 33,
+        "size_m": 9.66796875,
+        "threshold": 1.203125,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 6,
+        "half_rows": 32,
+        "half_cols": 32,
+        "window_rows": 65,
+        "window_cols": 65,
+        "size_m": 19.04296875,
+        "threshold": 1.90625,
+        "clamped_to_raster": false
+      },
+      {
+        "level": 7,
+        "half_rows": 33,
+        "half_cols": 33,
+        "window_rows": 67,
+        "window_cols": 67,
+        "size_m": 19.62890625,
+        "threshold": 0.587890625,
+        "clamped_to_raster": false
+      }
+    ],
+    "statistics": {
+      "valid_count": 16777216,
+      "ground_count": 16777216,
+      "ground_fraction": 1.0,
+      "dtm_min": 103.25186920166016,
+      "dtm_max": 106.64533233642578,
+      "dtm_mean": 105.09584064130104,
+      "ndsm_min": 0.0,
+      "ndsm_max": 0.0,
+      "ndsm_mean": 0.0,
+      "ndsm_p95": 0.0
+    }
+  },
+  "derivatives": {
+    "slope_shape": [
+      4096,
+      4096
+    ],
+    "aspect_shape": [
+      4096,
+      4096
+    ],
+    "slope_finite_count": 16777216,
+    "hillshade_shape": [
+      4096,
+      4096
+    ]
+  },
+  "visualization": {
+    "preview_size_bytes": 246094,
+    "grid_256_dimensions": [
+      256,
+      256
+    ],
+    "grid_512_dimensions": [
+      512,
+      512
+    ],
+    "glb_256_size_bytes": 3134516,
+    "glb_256_vertices": 65536,
+    "glb_256_triangles": 130050,
+    "glb_512_size_bytes": 12559424,
+    "glb_512_vertices": 262144,
+    "glb_512_triangles": 522242
+  },
+  "files": {
+    "synthetic_reference_PERFORMANCE_ONLY.tif": 67158832,
+    "metric_elevation_PERFORMANCE_ONLY.tif": 67158832,
+    "dtm_PERFORMANCE_ONLY.tif": 67158868,
+    "ndsm_PERFORMANCE_ONLY.tif": 67158868
+  },
+  "timings": {
+    "depth_raster_read": {
+      "seconds": 0.17254986399984773,
+      "peak_rss_mib": 285.40234375
+    },
+    "synthetic_reference_write": {
+      "seconds": 0.16183875100000478,
+      "peak_rss_mib": 364.31640625
+    },
+    "calibration_sampling": {
+      "seconds": 0.20955980899998394,
+      "peak_rss_mib": 174.03515625
+    },
+    "calibration_fit": {
+      "seconds": 0.0008125889999064384,
+      "peak_rss_mib": 174.78125
+    },
+    "calibration_metrics": {
+      "seconds": 0.00012822200005757622,
+      "peak_rss_mib": 175.55078125
+    },
+    "calibration_diagnostics": {
+      "seconds": 0.0006936350000614766,
+      "peak_rss_mib": 175.61328125
+    },
+    "calibration_cross_validation": {
+      "seconds": 0.008149868999907994,
+      "peak_rss_mib": 175.92578125
+    },
+    "calibration_quality_gate": {
+      "seconds": 1.2784999853465706e-05,
+      "peak_rss_mib": 175.93359375
+    },
+    "metric_elevation_compute": {
+      "seconds": 0.09605023499989329,
+      "peak_rss_mib": 285.94921875
+    },
+    "metric_elevation_write": {
+      "seconds": 0.17903552699999636,
+      "peak_rss_mib": 367.9453125
+    },
+    "ground_filter": {
+      "seconds": 17.973758878999888,
+      "peak_rss_mib": 1136.359375
+    },
+    "dtm_write": {
+      "seconds": 0.20821182000008776,
+      "peak_rss_mib": 544.33203125
+    },
+    "ndsm_write": {
+      "seconds": 0.17525097799989453,
+      "peak_rss_mib": 544.33203125
+    },
+    "derivative_prepare": {
+      "seconds": 0.22115725699995892,
+      "peak_rss_mib": 660.10546875
+    },
+    "slope_aspect_compute": {
+      "seconds": 1.5811137270000017,
+      "peak_rss_mib": 988.15625
+    },
+    "hillshade_compute": {
+      "seconds": 1.502456840999912,
+      "peak_rss_mib": 1246.29296875
+    },
+    "visualization_preview_1024": {
+      "seconds": 0.256599567999956,
+      "peak_rss_mib": 530.72265625
+    },
+    "terrain_grid_256": {
+      "seconds": 0.0392659569999978,
+      "peak_rss_mib": 484.72265625
+    },
+    "terrain_grid_512": {
+      "seconds": 0.036056325000117795,
+      "peak_rss_mib": 484.7265625
+    },
+    "mesh_glb_256": {
+      "seconds": 0.05127902199978962,
+      "peak_rss_mib": 484.7890625
+    },
+    "mesh_glb_512": {
+      "seconds": 0.24538543399989976,
+      "peak_rss_mib": 533.14453125
+    }
+  },
+  "total_seconds": 23.37236781599995,
+  "peak_rss_mib": 1246.29296875,
+  "process_final_rss_mib": 492.375,
+  "configuration": {
+    "calibration_max_samples": 2000,
+    "ground_filter_max_window_m": 20.0,
+    "ground_filter_slope": 0.15,
+    "ground_filter_initial_threshold": 0.5,
+    "ground_filter_max_threshold": 3.0,
+    "preview_max_dimension": 1024,
+    "terrain_max_dimension": 256,
+    "mesh_export_resolutions": [
+      256,
+      512
+    ]
+  }
+}

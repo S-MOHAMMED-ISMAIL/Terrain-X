@@ -1,0 +1,625 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-surface-app: #080b0e;
+  --color-surface-chrome: #0e1318;
+  --color-surface-panel: #151b21;
+  --color-surface-raised: #1c242c;
+  --color-surface-canvas: #05070a;
+  --color-surface-data: #f7f9fa;
+  --color-border-subtle: #29333d;
+  --color-border-strong: #44515d;
+  --color-text-primary: #f2f5f7;
+  --color-text-secondary: #a8b3bd;
+  --color-text-muted: #7f8b96;
+  --color-accent: #18b9a7;
+  --color-accent-hover: #28c9b7;
+  --color-accent-active: #0e8f82;
+  --color-status-info: #38a3e8;
+  --color-status-success: #39b873;
+  --color-status-warning: #e4a83b;
+  --color-status-danger: #e35d6a;
+  --motion-fast: 120ms;
+  --motion-selection: 150ms;
+  --motion-panel: 220ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+  body {
+    /* The dark "mission control" base the ambient DynamicScientificBackground
+       animates against — real page content (cards, panels) stays on its own
+       opaque white background regardless (see the `Card` primitive), so
+       this only shows through the gutters/margins around them. */
+    @apply bg-terrain-950 text-slate-900;
+  }
+  /* A consistent, visible keyboard-focus ring on every interactive element
+     — never suppressed, only ever restyled — so keyboard navigation stays
+     usable everywhere the visual design changes. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: var(--color-accent);
+    --tw-ring-offset-color: var(--color-surface-app);
+  }
+}
+
+@layer components {
+  .ui-content-gutter {
+    padding-inline: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .ui-control-row {
+    @apply flex min-w-0 flex-wrap items-center gap-2;
+  }
+
+  .ui-field-stack {
+    @apply grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2;
+  }
+
+  .ui-compact-header {
+    @apply flex min-w-0 flex-wrap items-center justify-between gap-2;
+  }
+
+  .ui-motion-panel {
+    transition-duration: var(--motion-panel);
+    transition-timing-function: var(--ease-enter);
+    transition-property: opacity, transform;
+  }
+
+  .terrain-workspace-shell {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    min-height: 42rem;
+    height: calc(100dvh - 10rem);
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.05);
+  }
+
+  .terrain-workspace-shell .terrain-viewport {
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+
+  .terrain-workspace-shell .terrain-layer-rail,
+  .terrain-workspace-shell .terrain-inspector-rail {
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+  }
+
+  .terrain-workspace-body {
+    position: relative;
+    display: grid;
+    min-height: 0;
+    min-width: 0;
+    flex: 1 1 auto;
+    grid-template-areas: "viewport";
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .terrain-viewport {
+    grid-area: viewport;
+  }
+
+  .terrain-engine-host[data-active-tool="point"],
+  .terrain-engine-host[data-active-tool="distance"],
+  .terrain-engine-host[data-active-tool="profile"],
+  .terrain-engine-host[data-active-tool="coordinate"],
+  .terrain-engine-host[data-active-tool="slope"],
+  .terrain-engine-host[data-active-tool="waypoint"] {
+    cursor: crosshair;
+  }
+
+  .terrain-engine-host[data-active-tool="point"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="distance"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="profile"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="coordinate"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="slope"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="waypoint"] .leaflet-container,
+  .terrain-engine-host[data-active-tool="point"] canvas,
+  .terrain-engine-host[data-active-tool="distance"] canvas,
+  .terrain-engine-host[data-active-tool="profile"] canvas,
+  .terrain-engine-host[data-active-tool="coordinate"] canvas,
+  .terrain-engine-host[data-active-tool="slope"] canvas,
+  .terrain-engine-host[data-active-tool="waypoint"] canvas {
+    cursor: crosshair !important;
+  }
+
+  .terrain-layer-rail,
+  .terrain-inspector-rail {
+    position: absolute;
+    inset-block: 0;
+    z-index: 1100;
+    width: min(82vw, 20rem);
+    transition: transform var(--motion-panel) var(--ease-enter);
+  }
+
+  .terrain-layer-rail {
+    left: 0;
+    border-right-width: 1px;
+  }
+
+  .terrain-inspector-rail {
+    right: 0;
+    border-left-width: 1px;
+  }
+
+  .terrain-workspace-body[data-layers-open="false"] .terrain-layer-rail {
+    transform: translateX(-100%);
+  }
+
+  .terrain-workspace-body[data-inspector-open="false"] .terrain-inspector-rail {
+    transform: translateX(100%);
+  }
+
+  .terrain-workspace-drawer {
+    flex: 0 0 auto;
+    max-height: 2.375rem;
+    overflow: hidden;
+    transition: max-height var(--motion-panel) var(--ease-standard);
+    background: linear-gradient(180deg, var(--color-surface-panel) 0%, var(--color-surface-chrome) 100%);
+  }
+
+  .terrain-workspace-drawer.is-open {
+    max-height: min(32dvh, 15rem);
+  }
+
+  .terrain-workspace-drawer-content {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+
+  .terrain-workspace-drawer-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .terrain-workspace-drawer-content::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 3px;
+  }
+
+  .terrain-workspace-drawer-content {
+    max-height: calc(min(32dvh, 15rem) - 2.375rem);
+  }
+
+  @media (min-width: 1280px) {
+    .terrain-workspace-body[data-layers-open="true"][data-inspector-open="true"] {
+      grid-template-areas: "layers viewport inspector";
+      grid-template-columns: 16rem minmax(35rem, 1fr) 20rem;
+    }
+
+    .terrain-workspace-body[data-layers-open="true"][data-inspector-open="false"] {
+      grid-template-areas: "layers viewport";
+      grid-template-columns: 16rem minmax(35rem, 1fr);
+    }
+
+    .terrain-workspace-body[data-layers-open="false"][data-inspector-open="true"] {
+      grid-template-areas: "viewport inspector";
+      grid-template-columns: minmax(35rem, 1fr) 20rem;
+    }
+
+    .terrain-layer-rail,
+    .terrain-inspector-rail {
+      position: relative;
+      inset: auto;
+      width: auto;
+      transform: none !important;
+    }
+
+    .terrain-layer-rail {
+      grid-area: layers;
+    }
+
+    .terrain-inspector-rail {
+      grid-area: inspector;
+    }
+
+    .terrain-workspace-body[data-layers-open="false"] .terrain-layer-rail,
+    .terrain-workspace-body[data-inspector-open="false"] .terrain-inspector-rail {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .terrain-workspace-shell {
+      height: auto;
+      min-height: 0;
+    }
+
+    .terrain-workspace-body {
+      display: flex;
+      height: auto;
+      flex: none;
+      flex-direction: column;
+      overflow: visible;
+    }
+
+    .terrain-viewport {
+      order: 1;
+      height: 22rem;
+      flex: none;
+    }
+
+    .terrain-layer-rail,
+    .terrain-inspector-rail {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      max-height: 18rem;
+      transform: none !important;
+    }
+
+    .terrain-inspector-rail {
+      order: 2;
+      border-top-width: 1px;
+      border-left-width: 0;
+    }
+
+    .terrain-layer-rail {
+      order: 3;
+      border-top-width: 1px;
+      border-right-width: 0;
+    }
+
+    .terrain-workspace-body[data-layers-open="false"] .terrain-layer-rail,
+    .terrain-workspace-body[data-inspector-open="false"] .terrain-inspector-rail {
+      display: none;
+    }
+
+    .terrain-workspace-drawer.is-open {
+      max-height: 18rem;
+    }
+  }
+}
+
+@layer utilities {
+  /* Staggered list/card entrance — purely presentational (opacity/transform
+     only), applied to containers that already hold real fetched data; it
+     never delays when that data appears, only how it visually settles in. */
+  .stagger-children > * {
+    animation: fade-in-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 40ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 80ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 160ms; }
+  .stagger-children > *:nth-child(n+6) { animation-delay: 200ms; }
+
+  /* A skeleton block for a genuinely-loading state — represents "we don't
+     know the value yet", never a fabricated placeholder number. */
+  .skeleton {
+    @apply animate-shimmer rounded-md bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200 bg-[length:200%_100%];
+  }
+}
+
+/* Respect the user's OS-level motion preference: every custom animation
+   and transition in the app collapses to (near-)instant. This is a global,
+   unconditional override — no component needs its own reduced-motion
+   branch. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    min-height: 2.75rem;
+  }
+}
+
+  /* Layer state indicators - color-coded left border for instant state recognition */
+  .layer-state-available {
+    border-left: 3px solid var(--color-status-success);
+  }
+  .layer-state-processing {
+    border-left: 3px solid var(--color-status-info);
+  }
+  .layer-state-failed {
+    border-left: 3px solid var(--color-status-danger);
+  }
+  .layer-state-unavailable {
+    border-left: 3px solid var(--color-border-strong);
+  }
+  .layer-state-relative {
+    border-left: 3px solid var(--color-status-warning);
+  }
+  .layer-state-metric {
+    border-left: 3px solid var(--color-accent);
+  }
+
+  /* Status bar typography - clear hierarchy for trust-critical info */
+  .status-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    background: rgb(255 255 255 / 0.03);
+    border: 1px solid rgb(255 255 255 / 0.06);
+    transition: background var(--motion-fast) var(--ease-standard);
+  }
+  .status-bar-item:hover {
+    background: rgb(255 255 255 / 0.06);
+  }
+  .status-bar-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 1;
+  }
+  .status-bar-value {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .status-bar-value.warning {
+    color: var(--color-status-warning);
+  }
+  .status-bar-value.success {
+    color: var(--color-status-success);
+  }
+  .status-bar-value.danger {
+    color: var(--color-status-danger);
+  }
+
+  /* Calibration rejection - clear but not alarming */
+  .calibration-rejection {
+    border: 1px solid rgb(228 168 59 / 0.3);
+    background: linear-gradient(135deg, rgb(228 168 59 / 0.08) 0%, rgb(228 168 59 / 0.02) 100%);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+  .calibration-rejection-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-status-warning);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .calibration-rejection-reason {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+    line-height: 1.4;
+  }
+
+  /* Loading / processing states - clear lifecycle */
+  .loading-pulse {
+    position: relative;
+    overflow: hidden;
+  }
+  .loading-pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.08), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Empty / failed / unavailable states - deliberate and clear */
+  .state-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: 1px dashed var(--color-border-strong);
+    background: rgb(255 255 255 / 0.02);
+  }
+  .state-message-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255 255 255 / 0.05);
+    margin-bottom: 0.75rem;
+  }
+  .state-message-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .state-message-detail {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    max-width: 20rem;
+  }
+
+  /* Viewport overlay - non-interactive info overlay */
+  .viewport-overlay {
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+  }
+  .viewport-overlay > * {
+    pointer-events: auto;
+  }
+
+  /* Smooth viewport transitions */
+  .terrain-viewport canvas,
+  .terrain-viewport .leaflet-container {
+    transition: opacity var(--motion-panel) var(--ease-standard);
+  }
+
+  /* Professional panel headers */
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.03) 0%, transparent 100%);
+  }
+  .panel-header-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* Compact data table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 0.375rem 0.5rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border-subtle);
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 0.375rem 0.5rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.04);
+    color: var(--color-text-secondary);
+  }
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Polished button variants */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    transition: all var(--motion-fast) var(--ease-standard);
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+  .btn-primary:active {
+    background: var(--color-accent-active);
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: rgb(255 255 255 / 0.05);
+    border: 1px solid var(--color-border-subtle);
+    transition: all var(--motion-fast) var(--ease-standard);
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    background: rgb(255 255 255 / 0.08);
+    color: var(--color-text-primary);
+  }
+
+  /* Measurement result display */
+  .measurement-result {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: rgb(255 255 255 / 0.03);
+    border: 1px solid var(--color-border-subtle);
+  }
+  .measurement-result-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+  }
+  .measurement-result-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .measurement-result-unit {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+  }
+
+  /* Flythrough HUD */
+  .flythrough-hud {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgb(0 0 0 / 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    color: white;
+    font-size: 0.75rem;
+    pointer-events: none;
+  }
+  .flythrough-hud-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .flythrough-hud-label {
+    color: rgb(255 255 255 / 0.6);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .flythrough-hud-value {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }

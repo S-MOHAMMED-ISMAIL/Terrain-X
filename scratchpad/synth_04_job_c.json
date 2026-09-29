@@ -1,0 +1,328 @@
+{
+  "id": "baca8a9d-b2c2-4c6c-95b2-4483d4a4f193",
+  "project_id": "c9681f20-5391-4674-bf72-e66090ab763a",
+  "dataset_id": "ef626e2b-11eb-4c39-b461-cab8ef55a698",
+  "user_id": "8e99a00f-dcad-4e52-a022-a4bb217edc47",
+  "status": "completed",
+  "current_stage": "completed",
+  "progress": 100,
+  "error_message": null,
+  "parameters": {
+    "version": "v1",
+    "water_level": null,
+    "run_flood_screening": false,
+    "landslide_thresholds": null,
+    "run_landslide_screening": false,
+    "dem_reference_dataset_id": "25110425-2834-4720-8c7c-4cc5ef36d4f4",
+    "gcp_reference_dataset_id": null,
+    "disaster_source_artifact_id": null,
+    "enable_semantic_segmentation": false
+  },
+  "execution_summary": {
+    "crs": "EPSG:32643",
+    "bands": 3,
+    "width": 768,
+    "height": 768,
+    "checked_at": "2026-09-29T04:09:50.414092+00:00",
+    "dataset_id": "ef626e2b-11eb-4c39-b461-cab8ef55a698",
+    "image_quality": {
+      "notes": "Real, cheap image-quality indicators computed directly from the uploaded RGB pixel data. These measure properties of the image itself only \u2014 NOT model confidence, NOT segmentation accuracy, and NOT elevation accuracy. See geospatial/image_quality.py.",
+      "luminance_max": 196.62,
+      "luminance_min": 90.34,
+      "luminance_mean": 130.2924207848443,
+      "overexposed_fraction": 0.0,
+      "valid_pixel_fraction": 1.0,
+      "underexposed_fraction": 0.0,
+      "sharpness_laplacian_variance": 25.18339653573617
+    },
+    "reopened_file": true,
+    "band_statistics": [
+      {
+        "max": 158.0,
+        "min": 35.0,
+        "band": 1,
+        "mean": 112.82376776801215
+      },
+      {
+        "max": 210.0,
+        "min": 105.0,
+        "band": 2,
+        "mean": 141.0737559000651
+      },
+      {
+        "max": 250.0,
+        "min": 78.0,
+        "band": 3,
+        "mean": 120.59490797254774
+      }
+    ],
+    "depth_estimation": {
+      "device": "cpu",
+      "model_name": "depth-anything/Depth-Anything-V2-Small-hf",
+      "artifact_id": "591ebc60-93c1-4c13-9f72-24740cdf5e8c",
+      "output_width": 768,
+      "output_height": 768,
+      "model_revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+      "inference_seconds": 1.3658894869986398
+    },
+    "is_georeferenced": true,
+    "parameters_version": "v1"
+  },
+  "calibration_status": "failed",
+  "calibration_metadata": {
+    "error": "Calibration rejected by the quality gate (policy v1) - G1_expected_scale_sign: Fitted scale a=-279.488 does not have the expected sign (+1); the calibrated surface would contradict this pipeline's depth convention. No metric elevation or DSM was written.",
+    "method": "affine_least_squares_with_iterative_sigma_clipping",
+    "scale_a": -279.4877033710086,
+    "offset_b": 2532.0609230564073,
+    "source_crs": "EPSG:32643",
+    "limitations": "This affine fit cannot distinguish terrain from object tops (buildings, trees, ...) visible in the source image; it is a calibrated version of whatever the monocular depth model saw, not a bare-earth model. `validation_metrics` are in-sample statistics over the fit's own inliers; `cross_validation` reports held-out statistics of the same fitting procedure. Both describe agreement with the supplied reference only, not independently validated absolute accuracy, and passing the quality gate is not an accuracy guarantee.",
+    "reprojected": false,
+    "quality_gate": {
+      "passed": false,
+      "policy": {
+        "version": "v1",
+        "statement": "Engineering acceptance policy, not an empirically validated accuracy standard. Passing means only that the fitted scale has the sign this pipeline's depth convention implies and that depth predicted held-out reference elevations better than their training-fold mean; it does not certify the accuracy of the resulting metric elevation.",
+        "min_cv_skill": 0.0,
+        "dem_cv_method": "leave_one_spatial_block_out",
+        "gcp_cv_method": "leave_one_out",
+        "cv_blocks_per_side": 4,
+        "expected_scale_sign": 1
+      },
+      "not_evaluated": [],
+      "failed_criteria": [
+        {
+          "reason": "Fitted scale a=-279.488 does not have the expected sign (+1); the calibrated surface would contradict this pipeline's depth convention.",
+          "scale_a": -279.4877033710086,
+          "criterion": "G1_expected_scale_sign",
+          "expected_scale_sign": 1
+        }
+      ]
+    },
+    "outlier_sigma": 2.5,
+    "reference_crs": "EPSG:32643",
+    "valid_samples": 2116,
+    "vertical_unit": {
+      "unit": null,
+      "source": "geotiff_band_unit+vertical_crs",
+      "status": "unknown",
+      "declared": null,
+      "to_metre": null,
+      "unit_name": null,
+      "diagnostic": "The vertical unit of this elevation raster could not be established from its metadata (no band unit type and no vertical CRS). It is not assumed to be metres."
+    },
+    "fit_iterations": 5,
+    "inlier_samples": 2054,
+    "reference_type": "dem",
+    "fit_diagnostics": {
+      "scale": -279.4877033710086,
+      "offset": 2532.0609230564073,
+      "pearson_r": -0.634439020521352,
+      "in_sample_r2": 0.4001298872709993,
+      "spearman_rho": -0.665037138732041,
+      "all_sample_mae": 217.13970209972808,
+      "all_sample_bias": -17.755498250941958,
+      "all_sample_rmse": 282.2557478696477,
+      "valid_sample_count": 2116,
+      "effective_sample_count": 2116
+    },
+    "outlier_samples": 62,
+    "cross_validation": {
+      "folds": [
+        {
+          "scale": -279.3872192668414,
+          "offset": 2538.716131806045,
+          "fold_id": 0,
+          "heldout_sse": 5327948.905816149,
+          "train_count": 1972,
+          "heldout_count": 144,
+          "train_inlier_count": 1941,
+          "heldout_baseline_sse": 20287266.92535893
+        },
+        {
+          "scale": -282.6218684137838,
+          "offset": 2535.1382054870037,
+          "fold_id": 1,
+          "heldout_sse": 10714177.626250297,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1914,
+          "heldout_baseline_sse": 25370111.31386579
+        },
+        {
+          "scale": -316.85054634292584,
+          "offset": 2643.3546240024093,
+          "fold_id": 2,
+          "heldout_sse": 18479640.55021758,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1938,
+          "heldout_baseline_sse": 6135686.015935162
+        },
+        {
+          "scale": -281.50842085255044,
+          "offset": 2548.3028925977437,
+          "fold_id": 3,
+          "heldout_sse": 1417625.134658487,
+          "train_count": 1972,
+          "heldout_count": 144,
+          "train_inlier_count": 1957,
+          "heldout_baseline_sse": 15468541.105117004
+        },
+        {
+          "scale": -277.5406280677334,
+          "offset": 2501.0538983716606,
+          "fold_id": 4,
+          "heldout_sse": 17906072.885516874,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1887,
+          "heldout_baseline_sse": 18206098.057258062
+        },
+        {
+          "scale": -277.62494350421645,
+          "offset": 2507.710595949425,
+          "fold_id": 5,
+          "heldout_sse": 27995979.25275766,
+          "train_count": 1995,
+          "heldout_count": 121,
+          "train_inlier_count": 1916,
+          "heldout_baseline_sse": 31310420.793545447
+        },
+        {
+          "scale": -284.8943835535566,
+          "offset": 2556.7505210444506,
+          "fold_id": 6,
+          "heldout_sse": 14331303.730358396,
+          "train_count": 1995,
+          "heldout_count": 121,
+          "train_inlier_count": 1933,
+          "heldout_baseline_sse": 11315906.61913335
+        },
+        {
+          "scale": -276.7984992639032,
+          "offset": 2515.6482594119516,
+          "fold_id": 7,
+          "heldout_sse": 4842620.363597766,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1925,
+          "heldout_baseline_sse": 6087310.43623118
+        },
+        {
+          "scale": -283.6438653812452,
+          "offset": 2522.6541268339,
+          "fold_id": 8,
+          "heldout_sse": 13611557.071113925,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1895,
+          "heldout_baseline_sse": 11658558.39757801
+        },
+        {
+          "scale": -281.12459493744734,
+          "offset": 2509.9291113176937,
+          "fold_id": 9,
+          "heldout_sse": 27077468.785705917,
+          "train_count": 1995,
+          "heldout_count": 121,
+          "train_inlier_count": 1910,
+          "heldout_baseline_sse": 20907665.992456667
+        },
+        {
+          "scale": -276.24014783231115,
+          "offset": 2542.8172552181823,
+          "fold_id": 10,
+          "heldout_sse": 11905333.134746946,
+          "train_count": 1995,
+          "heldout_count": 121,
+          "train_inlier_count": 1948,
+          "heldout_baseline_sse": 16045336.227413714
+        },
+        {
+          "scale": -281.0688732358883,
+          "offset": 2544.3329211064897,
+          "fold_id": 11,
+          "heldout_sse": 717184.3455881772,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1967,
+          "heldout_baseline_sse": 2125824.91740169
+        },
+        {
+          "scale": -272.5046118701957,
+          "offset": 2530.4504521606054,
+          "fold_id": 12,
+          "heldout_sse": 4911189.672964601,
+          "train_count": 1972,
+          "heldout_count": 144,
+          "train_inlier_count": 1954,
+          "heldout_baseline_sse": 26583258.80494266
+        },
+        {
+          "scale": -285.528895682659,
+          "offset": 2536.8073890553233,
+          "fold_id": 13,
+          "heldout_sse": 8928342.524091884,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1912,
+          "heldout_baseline_sse": 14446003.462376561
+        },
+        {
+          "scale": -252.31291687668417,
+          "offset": 2496.9113029655114,
+          "fold_id": 14,
+          "heldout_sse": 15822178.407292254,
+          "train_count": 1984,
+          "heldout_count": 132,
+          "train_inlier_count": 1946,
+          "heldout_baseline_sse": 45425697.89697142
+        },
+        {
+          "scale": -261.76302324174895,
+          "offset": 2515.5885586340682,
+          "fold_id": 15,
+          "heldout_sse": 4150571.446332841,
+          "train_count": 1972,
+          "heldout_count": 144,
+          "train_inlier_count": 1960,
+          "heldout_baseline_sse": 33509755.07552693
+        }
+      ],
+      "skill": 0.3829143603946855,
+      "method": "leave_one_spatial_block_out",
+      "sse_cv": 188139193.83700976,
+      "feasible": true,
+      "fold_count": 16,
+      "heldout_mae": 231.74276007656908,
+      "heldout_bias": -9.178086239231643,
+      "heldout_rmse": 298.1822638821111,
+      "blocks_per_side": 4,
+      "sse_baseline_cv": 304883442.04111254,
+      "heldout_sample_count": 2116,
+      "infeasibility_reason": null,
+      "non_empty_block_count": 16
+    },
+    "validation_metrics": {
+      "mae": 202.49586859705448,
+      "bias": 2.9067484156190226,
+      "rmse": 259.15787502487154,
+      "max_residual": 552.7625767914333,
+      "min_residual": -651.3428835867587
+    },
+    "reference_dataset_id": "25110425-2834-4720-8c7c-4cc5ef36d4f4",
+    "total_candidate_samples": 2116,
+    "validation_metrics_scope": "in_sample_inliers",
+    "calibration_duration_seconds": 0.3089542489979067
+  },
+  "semantic_status": "not_requested",
+  "semantic_metadata": null,
+  "ground_filter_status": "not_requested",
+  "ground_filter_metadata": null,
+  "disaster_status": "not_requested",
+  "disaster_metadata": null,
+  "created_at": "2026-09-29T04:09:41.224245Z",
+  "started_at": "2026-09-29T04:09:43.838819Z",
+  "completed_at": "2026-09-29T04:09:50.414447Z",
+  "updated_at": "2026-09-29T04:09:50.441977Z"
+}

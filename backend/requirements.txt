@@ -1,0 +1,41 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+email-validator==2.2.0
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+psycopg[binary]==3.2.3
+alembic==1.14.0
+argon2-cffi==23.1.0
+pyjwt==2.10.1
+redis==5.2.1
+rq==2.1.0
+httpx==0.28.1
+python-multipart==0.0.20
+rasterio==1.4.3
+numpy==2.1.3
+Pillow==11.1.0
+# Phase 9: real PDF report generation. Pure Python (no system libs like
+# cairo/pango needed, unlike e.g. WeasyPrint) — a plain pip install is
+# sufficient in this project's existing Docker image. BSD-licensed.
+reportlab==4.2.5
+# Phase 9 test/verification only: a real, independent PDF reader used to
+# parse and assert against actual generated report PDF content in
+# tests/test_reports.py (and in manual E2E verification) — never used by
+# the report-generation pipeline itself (that only ever WRITES PDFs via
+# reportlab above). BSD-licensed.
+pypdf==5.1.0
+# torch/torchvision are installed separately in the Dockerfile from the
+# CPU-only wheel index (https://download.pytorch.org/whl/cpu) — never a CUDA
+# build, since the reference environment has no NVIDIA GPU. Do not add them
+# here: a plain `pip install -r requirements.txt` would otherwise pull
+# PyPI's default (CUDA-enabled) linux wheel. `mobile_sam` itself is also
+# installed separately in the Dockerfile, pinned to an exact commit (no
+# PyPI release exists) — see backend/Dockerfile and ai/mobile_sam.py.
+transformers==4.47.1
+# Apache-2.0. A transitive hard dependency of MobileSAM's TinyViT backbone
+# (`mobile_sam.modeling.tiny_vit_sam` imports `timm.models.layers.DropPath`)
+# discovered when actually installing MobileSAM — not needed by anything
+# else in this project.
+timm==1.0.29
