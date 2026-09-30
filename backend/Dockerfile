@@ -53,4 +53,6 @@ EXPOSE 8000
 # Invoked via `sh` (not exec bit) because bind-mounting this directory from a
 # Windows host can drop the executable permission on the script.
 ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Use Railway's $PORT environment variable, falling back to 8000 locally.
+# Remove --reload for production (Railway handles restarts).
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

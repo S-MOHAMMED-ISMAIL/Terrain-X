@@ -8,8 +8,8 @@ import { Button, Field, Input, Notice } from "@/components/ui";
 export function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(import.meta.env.VITE_DEMO_EMAIL ?? "");
+  const [password, setPassword] = useState(import.meta.env.VITE_DEMO_PASSWORD ?? "");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
